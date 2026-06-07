@@ -1,0 +1,41 @@
+{
+  "name": "Perfect Love Text",
+  "short_name": "Love Text",
+  "id": "app.html",
+  "description": "Create beautiful, romantic, and heartfelt love messages, letters, and quotes.",
+  "start_url": "app.html",
+  "display": "standalone",
+  "background_color": "#08030a",
+  "theme_color": "#ff5e62",
+  "orientation": "portrait",
+  "categories": ["lifestyle", "social", "utilities"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Perfect Love Text Home"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Perfect Love Text Mobile"
+    }
+  ]
+}

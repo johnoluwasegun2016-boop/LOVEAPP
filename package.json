@@ -1,0 +1,22 @@
+{
+  "name": "perfect-love-text",
+  "version": "1.0.0",
+  "description": "Perfect Love Text - Heartfelt messages, letters, and quotes.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "love",
+    "quotes",
+    "generator",
+    "voice"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

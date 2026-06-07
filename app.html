@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Perfect Love Text - Express Your Love Beautifully</title>
+  <meta name="description" content="Create beautiful, romantic, and heartfelt love messages, letters, and quotes. Custom generated for your partner, fiancé, crush, or spouse.">
+  
+  <!-- PWA & Mobile Optimization Headers -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#08030a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Heart Particles -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Toast Containers (In-app notifications) -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Shell -->
+  <div class="app-shell">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <a href="#" class="brand">
+        <img src="logo.png" alt="Logo" style="width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--glass-border); object-fit: cover;">
+        <span class="brand-name">Perfect Love Text</span>
+      </a>
+      <div class="header-actions" style="display: flex; gap: 8px;">
+        <button id="info-btn" class="icon-btn" aria-label="App Info">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </button>
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark" style="width:18px; height:18px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content App Router -->
+    <main class="app-content">
+
+      <!-- ================= TAB 1: GENERATOR ================= -->
+      <section id="section-generator" class="page-section active">
+        <h1>Love Generator</h1>
+        <p class="section-subtitle">Turn your deep feelings into the perfect words.</p>
+
+        <!-- Sub Tabs: Generator styles -->
+        <div class="sub-tabs" style="overflow-x: auto; scrollbar-width: none;">
+          <button class="sub-tab-btn active" data-gen-tab="ai-text">AI Message</button>
+          <button class="sub-tab-btn" data-gen-tab="flirty">Flirty Texts</button>
+          <button class="sub-tab-btn" data-gen-tab="love-letters">Letters</button>
+          <button class="sub-tab-btn" data-gen-tab="proposals">Proposals/Speeches</button>
+          <button class="sub-tab-btn" data-gen-tab="love-stories">Love Stories</button>
+        </div>
+
+        <!-- Inner Tab: AI Message Generator -->
+        <div id="gen-tab-ai-text" class="gen-tab-content">
+          <div class="card">
+            <div class="form-group">
+              <label class="form-label">Message Style</label>
+              <input type="hidden" id="gen-style" value="romantic">
+              <div class="pill-scroll-container" id="gen-style-pills">
+                <button class="pill-btn active" data-val="romantic">❤️ Romantic</button>
+                <button class="pill-btn" data-val="sweet">🍬 Sweet</button>
+                <button class="pill-btn" data-val="cute">🥰 Cute</button>
+                <button class="pill-btn" data-val="flirty">😘 Flirty</button>
+                <button class="pill-btn" data-val="passionate">🔥 Passionate</button>
+                <button class="pill-btn" data-val="deep_emotional">🥺 Deep</button>
+                <button class="pill-btn" data-val="apology">😔 Apology</button>
+                <button class="pill-btn" data-val="missing_you">💔 Missing</button>
+                <button class="pill-btn" data-val="appreciation">🙏 Gratitude</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Recipient Relation</label>
+              <input type="hidden" id="gen-recipient" value="boyfriend">
+              <div class="pill-scroll-container" id="gen-recipient-pills">
+                <button class="pill-btn active" data-val="boyfriend">👦 Boyfriend</button>
+                <button class="pill-btn" data-val="girlfriend">👧 Girlfriend</button>
+                <button class="pill-btn" data-val="spouse">💍 Spouse</button>
+                <button class="pill-btn" data-val="fiance">💎 Fiancé</button>
+                <button class="pill-btn" data-val="crush">🤫 Crush</button>
+                <button class="pill-btn" data-val="new_relationship">🌱 New Love</button>
+                <button class="pill-btn" data-val="long_distance">✈️ LDR Love</button>
+                <button class="pill-btn" data-val="reconciliation">🤝 Reconnect</button>
+              </div>
+            </div>
+
+            <div class="divider-hearts"><span>♥</span></div>
+
+            <div class="form-group">
+              <label class="form-label">Select Your Mood</label>
+              <div class="mood-grid">
+                <button class="mood-btn active" data-mood="romantic">
+                  <span class="mood-emoji">🥰</span>
+                  <span class="mood-label">Romantic</span>
+                </button>
+                <button class="mood-btn" data-mood="happy">
+                  <span class="mood-emoji">😊</span>
+                  <span class="mood-label">Happy</span>
+                </button>
+                <button class="mood-btn" data-mood="missing">
+                  <span class="mood-emoji">🥺</span>
+                  <span class="mood-label">Missing</span>
+                </button>
+                <button class="mood-btn" data-mood="grateful">
+                  <span class="mood-emoji">🙏</span>
+                  <span class="mood-label">Grateful</span>
+                </button>
+                <button class="mood-btn" data-mood="guilty">
+                  <span class="mood-emoji">😔</span>
+                  <span class="mood-label">Guilty</span>
+                </button>
+                <button class="mood-btn" data-mood="lonely">
+                  <span class="mood-emoji">💔</span>
+                  <span class="mood-label">Lonely</span>
+                </button>
+                <button class="mood-btn" data-mood="celebrating">
+                  <span class="mood-emoji">🎉</span>
+                  <span class="mood-label">Celebrating</span>
+                </button>
+                <button class="mood-btn" data-mood="">
+                  <span class="mood-emoji">✨</span>
+                  <span class="mood-label">Neutral</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Partner's Name (Optional)</label>
+              <input type="text" id="gen-partner-name" class="input-text" placeholder="e.g. Sarah, David">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Specific Details / Memory (Optional)</label>
+              <textarea id="gen-details" class="input-textarea" placeholder="e.g. apologizing for being late, celebrating our 6-month anniversary, etc."></textarea>
+            </div>
+
+            <div class="divider-hearts"><span>♥</span></div>
+
+            <div class="form-group">
+              <label class="form-label">Output Language</label>
+              <input type="hidden" id="gen-lang" value="en">
+              <div class="pill-grid" id="gen-lang-pills">
+                <button class="pill-grid-btn active" data-val="en">🇬🇧 English</button>
+                <button class="pill-grid-btn" data-val="fr">🇫🇷 French</button>
+                <button class="pill-grid-btn" data-val="es">🇪🇸 Spanish</button>
+                <button class="pill-grid-btn" data-val="pt">🇵🇹 Portuguese</button>
+                <button class="pill-grid-btn" data-val="yo">🇳🇬 Yoruba</button>
+                <button class="pill-grid-btn" data-val="ha">🇳🇬 Hausa</button>
+                <button class="pill-grid-btn" data-val="ig">🇳🇬 Igbo</button>
+                <button class="pill-grid-btn" data-val="ar">🇸🇦 Arabic</button>
+              </div>
+            </div>
+
+            <button id="btn-generate-text" class="btn btn-primary" style="margin-top: 10px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Generate Perfect Message
+            </button>
+          </div>
+        </div>
+
+        <!-- Inner Tab: Flirty & Teasing -->
+        <div id="gen-tab-flirty" class="gen-tab-content" style="display: none;">
+          <div class="card">
+            <div class="form-group">
+              <label class="form-label">Flirty Style</label>
+              <input type="hidden" id="flirty-style-val" value="flirty">
+              <div class="pill-scroll-container" id="flirty-style-pills">
+                <button class="pill-btn active" data-val="flirty">😘 Flirty texts</button>
+                <button class="pill-btn" data-val="teasing">😜 Teasing messages</button>
+                <button class="pill-btn" data-val="first_date">🥂 First-date lines</button>
+                <button class="pill-btn" data-val="crush">🤫 Crush texts</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Partner's Name (Optional)</label>
+              <input type="text" id="flirty-partner-name" class="input-text" placeholder="e.g. Liam, Chloe">
+            </div>
+
+            <button id="btn-generate-flirty" class="btn btn-primary">Generate Flirty Text</button>
+          </div>
+        </div>
+
+        <!-- Inner Tab: Love Letters -->
+        <div id="gen-tab-love-letters" class="gen-tab-content" style="display: none;">
+          <div class="card">
+            <div class="form-group">
+              <label class="form-label">Letter Vibe & Occasion</label>
+              <input type="hidden" id="letter-type" value="romantic_letter">
+              <div class="pill-scroll-container" id="letter-type-pills">
+                <button class="pill-btn active" data-val="romantic_letter">🌹 Romantic Letter</button>
+                <button class="pill-btn" data-val="short_note">📝 Short Note</button>
+                <button class="pill-btn" data-val="anniversary_letter">🎂 Anniversary</button>
+                <button class="pill-btn" data-val="apology_letter">😔 Apology</button>
+                <button class="pill-btn" data-val="long_emotional">🥺 Deep Emotional</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Partner's Name (Optional)</label>
+              <input type="text" id="letter-partner-name" class="input-text" placeholder="e.g. Michelle, Alex">
+            </div>
+
+            <div class="divider-hearts"><span>♥</span></div>
+
+            <div class="form-group">
+              <label class="form-label">Output Language</label>
+              <input type="hidden" id="letter-lang" value="en">
+              <div class="pill-grid" id="letter-lang-pills">
+                <button class="pill-grid-btn active" data-val="en">🇬🇧 English</button>
+                <button class="pill-grid-btn" data-val="fr">🇫🇷 French</button>
+                <button class="pill-grid-btn" data-val="es">🇪🇸 Spanish</button>
+                <button class="pill-grid-btn" data-val="pt">🇵🇹 Portuguese</button>
+                <button class="pill-grid-btn" data-val="yo">🇳🇬 Yoruba</button>
+                <button class="pill-grid-btn" data-val="ha">🇳🇬 Hausa</button>
+                <button class="pill-grid-btn" data-val="ig">🇳🇬 Igbo</button>
+                <button class="pill-grid-btn" data-val="ar">🇸🇦 Arabic</button>
+              </div>
+            </div>
+
+            <button id="btn-generate-letter" class="btn btn-primary" style="margin-top: 10px;">
+              Generate Deep Letter
+            </button>
+          </div>
+        </div>
+
+        <!-- Inner Tab: Proposals & Speeches -->
+        <div id="gen-tab-proposals" class="gen-tab-content" style="display: none;">
+          <div class="card">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="proposal-speech-category" class="input-select">
+                <option value="marriage" selected>💍 Marriage Proposal Speech</option>
+                <option value="proposal_letter">✉️ Proposal Love Letter</option>
+                <option value="engagement_speech">🥂 Engagement Speech</option>
+                <option value="wedding">👰 Wedding Speech</option>
+                <option value="anniversary">🌹 Anniversary Speech</option>
+                <option value="birthday">🎂 Birthday Speech</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Partner's Name (Optional)</label>
+              <input type="text" id="proposal-partner-name" class="input-text" placeholder="e.g. Sophia, Ryan">
+            </div>
+
+            <button id="btn-generate-proposal" class="btn btn-primary">Generate Speech/Proposal</button>
+          </div>
+        </div>
+
+
+
+        <!-- Inner Tab: Love Storybook -->
+        <div id="gen-tab-love-stories" class="gen-tab-content" style="display: none;">
+          <div class="card">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" id="story-my-name" class="input-text" placeholder="e.g. John" value="John">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Partner's Name</label>
+              <input type="text" id="story-partner-name" class="input-text" placeholder="e.g. Clara" value="Clara">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">How Did You Meet?</label>
+              <input type="text" id="story-how-met" class="input-text" placeholder="e.g. at a local library book club, through mutual friends at a party" value="at a local library book club">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">A Special Shared Memory</label>
+              <textarea id="story-memory" class="input-textarea" placeholder="e.g. sharing an umbrella in the heavy rain, walking on the beach at night" value="sharing an umbrella in the heavy rain">sharing an umbrella in the heavy rain</textarea>
+            </div>
+
+            <button id="btn-generate-story" class="btn btn-primary">Compile Love Storybook</button>
+          </div>
+        </div>
+
+        <!-- AI Generator Loading screen -->
+        <div id="generator-loading" class="loading-box card">
+          <span class="loading-heart">❤️</span>
+          <div id="loading-status" class="loading-status">Analyzing details...</div>
+          <div id="loading-substatus" class="loading-substatus">Crafting perfect romantic sentiment</div>
+        </div>
+
+        <!-- Generation Output Box -->
+        <div id="generator-result" class="result-box">
+          <div class="result-card">
+            <blockquote id="result-text-body" class="result-text"></blockquote>
+            
+            <div class="result-actions">
+              <button id="btn-copy-result" class="btn btn-secondary" style="flex:1;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy
+              </button>
+              <button id="btn-schedule-result" class="btn btn-secondary" style="flex:1;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Schedule
+              </button>
+              <button id="btn-share-result" class="btn btn-secondary" style="width: 44px; padding: 0;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              </button>
+            </div>
+
+            <!-- Voice Control Center (Web Speech TTS) -->
+            <div class="voice-panel">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Voice Preview</span>
+              </div>
+              
+              <!-- Voice select grid -->
+              <div class="voice-controls">
+                <div>
+                  <label class="form-label" style="font-size:10px;">Voice Speaker</label>
+                  <select id="voice-select" class="input-select" style="padding: 8px 10px; font-size:12px; height: 36px;"></select>
+                </div>
+                <div>
+                  <label class="form-label" style="font-size:10px;">Speed / Pitch</label>
+                  <div style="display:flex; gap:10px; align-items:center; height:36px;">
+                    <input type="range" id="voice-speed" min="0.5" max="1.5" step="0.1" value="1.0" style="width:100%; accent-color:var(--primary);">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audio waveform and playback button -->
+              <div class="voice-player">
+                <button id="btn-voice-play" class="playback-btn" aria-label="Play Voice Message">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="play-icon"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="pause-icon" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <canvas id="waveform-canvas" class="waveform-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: MEMORIES & VAULT ================= -->
+      <section id="section-vault" class="page-section">
+        <h1>Love Memory Vault</h1>
+        <p class="section-subtitle">Keep track of your beautiful milestones, memories, and photos.</p>
+
+        <!-- Subtabs: Vault features -->
+        <div class="sub-tabs">
+          <button class="sub-tab-btn active" data-vault-tab="dates">Dates & Countdowns</button>
+          <button class="sub-tab-btn" data-vault-tab="memories">Our Memories</button>
+          <button class="sub-tab-btn" data-vault-tab="photos">Photo Captions</button>
+        </div>
+
+        <!-- Inner Tab: Dates Countdowns -->
+        <div id="vault-tab-dates" class="vault-tab-content">
+          <!-- Countdowns -->
+          <div class="countdown-grid">
+            <div class="countdown-box">
+              <div id="stat-days-together" class="countdown-num">365</div>
+              <div class="countdown-lbl">Days Together</div>
+            </div>
+            <div class="countdown-box">
+              <div id="stat-next-anniversary" class="countdown-num">12</div>
+              <div class="countdown-lbl">Days to Anniversary</div>
+            </div>
+          </div>
+
+          <!-- Upcoming Dates Config Card -->
+          <div class="card">
+            <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:15px; font-size:16px; display:flex; justify-content:space-between; align-items:center;">
+              <span>Milestone Countdowns</span>
+              <button id="btn-add-custom-date" class="icon-btn" style="width:28px; height:28px;" aria-label="Add Date">+</button>
+            </h3>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:15px;">
+              <!-- First meeting -->
+              <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04);">
+                <div>
+                  <div style="font-size:12px; font-weight:700;">First Meeting Date</div>
+                  <div id="lbl-first-meeting" style="font-size:11px; color:var(--text-muted);">Feb 14, 2024</div>
+                </div>
+                <input type="date" id="input-date-first-meeting" style="background:none; border:none; color:var(--primary); outline:none; font-size:12px; font-family:var(--font-display); font-weight:700;">
+              </div>
+              
+              <!-- Anniversary -->
+              <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04);">
+                <div>
+                  <div style="font-size:12px; font-weight:700;">Official Anniversary</div>
+                  <div id="lbl-anniversary" style="font-size:11px; color:var(--text-muted);">Jun 5, 2024</div>
+                </div>
+                <input type="date" id="input-date-anniversary" style="background:none; border:none; color:var(--primary); outline:none; font-size:12px; font-family:var(--font-display); font-weight:700;">
+              </div>
+
+              <!-- Wedding day configuration -->
+              <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04);">
+                <div>
+                  <div style="font-size:12px; font-weight:700;">Wedding Day</div>
+                  <div id="lbl-wedding" style="font-size:11px; color:var(--text-muted);">Aug 28, 2027</div>
+                </div>
+                <input type="date" id="input-date-wedding" style="background:none; border:none; color:var(--primary); outline:none; font-size:12px; font-family:var(--font-display); font-weight:700;">
+              </div>
+            </div>
+
+            <!-- List of other dates -->
+            <div id="custom-dates-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+          </div>
+        </div>
+
+        <!-- Inner Tab: Memory timeline -->
+        <div id="vault-tab-memories" class="vault-tab-content" style="display: none;">
+          <div class="card">
+            <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:20px; font-size:16px; display:flex; justify-content:space-between; align-items:center;">
+              <span>Memory Story Box</span>
+              <button id="btn-add-memory" class="btn btn-primary" style="width:auto; padding: 6px 14px; font-size:12px; border-radius:10px;">Add Memory</button>
+            </h3>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:-15px; margin-bottom:20px;">Use the 💬 icon next to memories to write text messages from them.</p>
+
+            <div id="timeline-container" class="timeline"></div>
+          </div>
+        </div>
+
+        <!-- Inner Tab: Photo captions -->
+        <div id="vault-tab-photos" class="vault-tab-content" style="display: none;">
+          <div class="card">
+            <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:12px; font-size:16px;">Photo-to-Love Message</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">Simulate uploading a sweet couples photo, and let AI generate a beautiful caption for it.</p>
+
+            <div class="photo-upload-zone" id="photo-upload-zone">
+              <input type="file" id="photo-file-input" accept="image/*" style="display:none;">
+              <span style="font-size:32px; display:block; margin-bottom:10px;">📸</span>
+              <span style="font-size:13px; font-weight:700; color:var(--primary);">Choose or Drag Couples Photo</span>
+              <span style="font-size:10px; color:var(--text-dim); display:block; margin-top:4px;">Supports PNG, JPG</span>
+            </div>
+
+            <!-- Preview box -->
+            <div class="photo-preview-box" id="photo-preview-box">
+              <img id="photo-preview-img" class="photo-preview-img" src="" alt="Couples Preview">
+              <div style="padding:10px; text-align:right;">
+                <button id="btn-remove-photo" style="background:none; border:none; color:var(--primary); font-size:11px; cursor:pointer; font-weight:700;">Remove Photo</button>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+              <label class="form-label">Caption Tone Vibe</label>
+              <select id="photo-caption-vibe" class="input-select">
+                <option value="romantic" selected>🌹 Romantic Caption</option>
+                <option value="flirty">😘 Flirty Caption</option>
+                <option value="cute">🥰 Cute Caption</option>
+                <option value="deep_emotional">🥺 Deep Emotional Caption</option>
+              </select>
+            </div>
+
+            <button id="btn-generate-photo-caption" class="btn btn-primary">Generate Photo Message</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: PLAYZONE ================= -->
+      <section id="section-playzone" class="page-section">
+        <h1>Couples Playzone</h1>
+        <p class="section-subtitle">Play games, complete challenges, and keep secret notes.</p>
+
+        <!-- Sub Tabs for Playzone -->
+        <div class="sub-tabs">
+          <button class="sub-tab-btn active" data-couple-tab="challenges">Daily Challenges</button>
+          <button class="sub-tab-btn" data-couple-tab="games">Interactive Games</button>
+          <button class="sub-tab-btn" data-couple-tab="secretnotes">Secret Notes 🔒</button>
+        </div>
+
+        <!-- Inner Tab: Challenges -->
+        <div id="couple-tab-challenges" class="couple-tab-content">
+          <!-- Daily locked seed challenge -->
+          <div class="card" style="border-color:var(--primary-glow); background: linear-gradient(135deg, rgba(255, 94, 98, 0.05) 0%, rgba(20, 7, 24, 0.8) 100%);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span class="player-indicator" style="background: var(--primary-glow); color:var(--primary);">Today's Romance Challenge</span>
+              <span style="font-size:18px;">🔥</span>
+            </div>
+            <h3 id="daily-challenge-title" style="font-family:var(--font-display); font-weight:800; font-size:18px; margin-bottom:6px;">Plan a surprise</h3>
+            <p id="daily-challenge-desc" style="font-size:13px; color:var(--text-muted); line-height:1.4; margin-bottom:15px;">Order their favorite snack, write a mini note, or prepare their tea unexpectedly.</p>
+            <button id="btn-complete-daily-challenge" class="btn btn-primary" style="font-size:13px; padding: 10px 20px; width:auto;">Complete Challenge</button>
+          </div>
+
+          <!-- Weekly list progress stats -->
+          <div class="card" style="padding: 16px; margin-bottom: 15px; display:flex; align-items:center; gap:15px;">
+            <div style="flex:1;">
+              <h4 style="font-size:14px; font-weight:700;">Relationship Goals Checklist</h4>
+              <p style="font-size:11px; color:var(--text-muted);">Complete challenges to spark new connections.</p>
+            </div>
+            <div style="text-align:right;">
+              <div id="challenge-percentage" style="font-family:var(--font-display); font-size:24px; font-weight:800; color:var(--primary);">20%</div>
+              <div id="challenge-fraction" style="font-size:10px; color:var(--text-muted);">1/5 done</div>
+            </div>
+          </div>
+
+          <!-- Checklist -->
+          <div id="challenges-list-container"></div>
+          
+          <button id="btn-reset-challenges" class="btn btn-secondary" style="font-size:12px; padding: 8px 12px; width:auto; display:block; margin: 0 auto;">Reset Challenges</button>
+        </div>
+
+        <!-- Inner Tab: Interactive Games -->
+        <div id="couple-tab-games" class="couple-tab-content" style="display: none;">
+          <div class="sub-tabs" style="margin-bottom:15px; background:rgba(255,255,255,0.02)">
+            <button class="sub-tab-btn active" data-game-subtab="questions">Questions</button>
+            <button class="sub-tab-btn" data-game-subtab="trivia">Partner Game</button>
+            <button class="sub-tab-btn" data-game-subtab="quizzes">Vibe Quiz</button>
+          </div>
+
+          <!-- Game sub-tab: Cards -->
+          <div id="game-subtab-questions" class="game-subcontent">
+            <div class="form-group">
+              <label class="form-label">Card Category</label>
+              <select id="card-category-select" class="input-select">
+                <option value="fun" selected>Fun & Playful 🥳</option>
+                <option value="deep">Deep & Vulnerable 🥺</option>
+                <option value="future">Dreams & Future 🔮</option>
+                <option value="spicy">Spicy Romance 🔥</option>
+              </select>
+            </div>
+
+            <div class="card-stack">
+              <div id="game-flashcard" class="game-card">
+                <div class="card-front">
+                  <span id="game-card-category" class="card-category">Fun & Playful</span>
+                  <p id="game-card-text" class="card-question">Tap to reveal a romantic question...</p>
+                  <div style="font-size:11px; margin-top:20px; color:var(--text-dim);">Tap Card to Draw/Flip</div>
+                </div>
+                <div class="card-back">
+                  <span class="card-category">Time to Share!</span>
+                  <p id="game-card-back-text" class="card-question">Let's answer honestly.</p>
+                  <div style="font-size:11px; margin-top:20px; color:rgba(255,255,255,0.7)">Tap to draw next card</div>
+                </div>
+              </div>
+            </div>
+            
+            <button id="btn-next-question" class="btn btn-secondary">Draw Another Card</button>
+          </div>
+
+          <!-- Game sub-tab: Trivia pass-and-play -->
+          <div id="game-subtab-trivia" class="game-subcontent" style="display: none;">
+            <div id="trivia-setup" class="game-setup active">
+              <div class="card" style="text-align: center; padding: 30px 20px;">
+                <span style="font-size:48px;">📱</span>
+                <h3 style="font-family: var(--font-display); font-weight:700; margin-top:15px; margin-bottom:10px;">How Well Do You Know Me?</h3>
+                <p style="font-size:13px; color: var(--text-muted); margin-bottom:20px;">A pass-and-play game. Player 1 answers 5 trivia questions about themselves, then Player 2 tries to guess them!</p>
+                <div class="form-group" style="text-align:left;"><label class="form-label">Player 1 Name</label><input type="text" id="player1-name" class="input-text" value="Alex"></div>
+                <div class="form-group" style="text-align:left;"><label class="form-label">Player 2 Name</label><input type="text" id="player2-name" class="input-text" value="Sam"></div>
+                <button id="btn-start-trivia" class="btn btn-primary">Start Game</button>
+              </div>
+            </div>
+            <div id="trivia-active" class="game-active">
+              <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                  <span id="trivia-player-indicator" class="player-indicator">Player 1</span>
+                  <span id="trivia-question-number" style="font-size:12px; font-weight:700; color:var(--text-muted);">Question 1 of 5</span>
+                </div>
+                <h3 id="trivia-question-text" style="font-family:var(--font-serif); font-size:18px; margin-bottom:20px; line-height:1.4;">Comfort food?</h3>
+                <div id="trivia-options-container"></div>
+              </div>
+            </div>
+            <div id="trivia-results" class="game-results">
+              <div class="card" style="text-align: center; padding: 30px 20px;">
+                <span style="font-size:55px; animation: heartbeat 1.5s infinite; display:inline-block;">🏆</span>
+                <h3 style="font-family: var(--font-display); font-weight:700; margin-top:15px; margin-bottom:5px;">Compatibility Results</h3>
+                <p id="trivia-result-subtitle" style="font-size:13px; color: var(--text-muted); margin-bottom:20px;"></p>
+                <div style="background: rgba(255,255,255,0.03); padding:20px; border-radius:16px; margin-bottom:20px;">
+                  <div id="trivia-score-percentage" style="font-family:var(--font-display); font-size:46px; font-weight:800; color:var(--primary); text-shadow:0 0 10px var(--primary-glow);">80%</div>
+                  <div id="trivia-score-fraction" style="font-size:13px; color:var(--text-muted); margin-top:5px;"></div>
+                </div>
+                <p id="trivia-score-comment" style="font-size:14px; font-style:italic; margin-bottom:25px;"></p>
+                <button id="btn-restart-trivia" class="btn btn-secondary">Play Again</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game sub-tab: Vibe check quiz -->
+          <div id="game-subtab-quizzes" class="game-subcontent" style="display: none;">
+            <div id="quiz-intro" class="card" style="text-align: center;">
+              <span style="font-size:48px;">☕</span>
+              <h3 style="font-family: var(--font-display); font-weight:700; margin-top:15px; margin-bottom:10px;">Couple Vibe Quiz</h3>
+              <p style="font-size:13px; color: var(--text-muted); margin-bottom:20px;">Answer three quick questions together to find out your overall relationship archetype!</p>
+              <button id="btn-start-vibe-quiz" class="btn btn-primary">Start Quiz</button>
+            </div>
+            <div id="quiz-active" class="card" style="display:none;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <span class="player-indicator" style="background:var(--secondary-glow); color:var(--secondary);">Vibe Check</span>
+                <span id="quiz-step-count" style="font-size:12px; color:var(--text-muted); font-weight:700;">Question 1 of 3</span>
+              </div>
+              <h3 id="quiz-question-title" style="font-family:var(--font-serif); font-size:18px; margin-bottom:20px;">Date night preference?</h3>
+              <div id="quiz-options-box"></div>
+            </div>
+            <div id="quiz-results" class="card" style="display:none; text-align:center;">
+              <span style="font-size:48px;">✨</span>
+              <h3 id="quiz-result-title" style="font-family: var(--font-display); font-weight:700; margin-top:15px; margin-bottom:10px;">Classic Romantics</h3>
+              <p id="quiz-result-desc" style="font-size:13px; color: var(--text-muted); line-height:1.5; margin-bottom:20px;"></p>
+              <button id="btn-restart-vibe-quiz" class="btn btn-secondary">Retake Quiz</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inner Tab: Secret Notes Lockbox -->
+        <div id="couple-tab-secretnotes" class="couple-tab-content" style="display: none;">
+          <!-- Lock status screen (requires PIN verification or creation) -->
+          <div id="lockbox-auth-screen" class="card" style="text-align: center; padding: 30px 20px;">
+            <span style="font-size:48px; display:block; margin-bottom:15px;">🔒</span>
+            <h3 id="lockbox-auth-title" style="font-family: var(--font-display); font-weight:800; margin-bottom:8px;">Enter Passcode</h3>
+            <p id="lockbox-auth-desc" style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Enter your 4-digit PIN to access your secret love lockbox.</p>
+            
+            <!-- Code dots -->
+            <div class="pin-display">
+              <div class="pin-dot" id="pdot-1"></div>
+              <div class="pin-dot" id="pdot-2"></div>
+              <div class="pin-dot" id="pdot-3"></div>
+              <div class="pin-dot" id="pdot-4"></div>
+            </div>
+
+            <!-- PIN keypad pad -->
+            <div class="pin-pad-grid">
+              <button class="pin-btn" data-pin-num="1">1</button>
+              <button class="pin-btn" data-pin-num="2">2</button>
+              <button class="pin-btn" data-pin-num="3">3</button>
+              <button class="pin-btn" data-pin-num="4">4</button>
+              <button class="pin-btn" data-pin-num="5">5</button>
+              <button class="pin-btn" data-pin-num="6">6</button>
+              <button class="pin-btn" data-pin-num="7">7</button>
+              <button class="pin-btn" data-pin-num="8">8</button>
+              <button class="pin-btn" data-pin-num="9">9</button>
+              <button class="pin-btn" id="btn-pin-clear" style="font-size:13px;">Clear</button>
+              <button class="pin-btn" data-pin-num="0">0</button>
+              <button class="pin-btn" id="btn-pin-submit" style="font-size:13px; background:var(--primary-glow); border-color:var(--primary);">OK</button>
+            </div>
+          </div>
+
+          <!-- Secret Notes container -->
+          <div id="lockbox-notes-screen" style="display:none;">
+            <div class="card">
+              <h3 style="font-family: var(--font-display); font-weight:800; font-size:16px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
+                <span>Secret Lockbox</span>
+                <div style="display:flex; gap:10px;">
+                  <button id="btn-add-secret-note" class="btn btn-primary" style="width:auto; padding: 6px 14px; font-size:12px; border-radius:10px;">Add Note</button>
+                  <button id="btn-lock-lockbox" class="btn btn-secondary" style="width:auto; padding: 6px 14px; font-size:12px; border-radius:10px;">Lock</button>
+                </div>
+              </h3>
+
+              <div id="secret-notes-list-box"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: LOVE CALCULATOR ================= -->
+      <section id="section-love-calc" class="page-section">
+        <h1>Love Calculator 💖</h1>
+        <p class="section-subtitle">Calculate relationship chemistry, compatibility, and get customized advice.</p>
+
+        <!-- Calculator Form Card -->
+        <div id="calc-form-card" class="card">
+          <div class="form-group">
+            <label class="form-label" for="calc-name1">Your Name</label>
+            <input type="text" id="calc-name1" class="input-text" placeholder="Enter your name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calc-name2">Your Partner's Name</label>
+            <input type="text" id="calc-name2" class="input-text" placeholder="Enter partner's name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="calc-relation">Relationship Stage</label>
+            <select id="calc-relation" class="input-select">
+              <option value="crush" selected>Secret Crush 🤫</option>
+              <option value="dating">Dating 💞</option>
+              <option value="married">Happily Married 💍</option>
+              <option value="ldr">Long Distance Relationship ✈️</option>
+              <option value="complicated">It's Complicated 🌀</option>
+            </select>
+          </div>
+
+          <button id="btn-calculate-love" class="btn btn-primary">
+            Calculate Chemistry ✨
+          </button>
+        </div>
+
+        <!-- Calculator Loading Card -->
+        <div id="calc-loading" class="card loading-box" style="display: none;">
+          <div class="loading-heart">💖</div>
+          <div id="calc-loading-status" class="loading-status">Scanning Chemistry...</div>
+          <div id="calc-loading-substatus" class="loading-substatus" style="margin-bottom: 15px;">Analyzing name vibrations...</div>
+          <div class="progress-bar-container" style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden; margin-top: 10px;">
+            <div id="calc-progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 4px; transition: width 0.1s linear;"></div>
+          </div>
+        </div>
+
+        <!-- Calculator Results Card -->
+        <div id="calc-results" class="result-box" style="display: none;">
+          <div class="card" style="text-align: center;">
+            <div class="score-circle-container" style="position: relative; width: 160px; height: 160px; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center;">
+              <svg width="160" height="160" viewBox="0 0 160 160" style="transform: rotate(-90deg);">
+                <!-- Background circle -->
+                <circle cx="80" cy="80" r="65" stroke="rgba(255, 255, 255, 0.05)" stroke-width="12" fill="transparent" />
+                <!-- Foreground circle with progress -->
+                <circle id="calc-score-ring" cx="80" cy="80" r="65" stroke="url(#gradient-primary)" stroke-width="12" fill="transparent"
+                  stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke-linecap="round" style="transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);" />
+                <defs>
+                  <linearGradient id="gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--primary)" />
+                    <stop offset="100%" stop-color="var(--secondary)" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="score-text-overlay" style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span id="calc-score-value" style="font-family: var(--font-display); font-size: 38px; font-weight: 800; color: var(--text-main); line-height: 1;">0%</span>
+                <span style="font-size: 9px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">Chemistry</span>
+              </div>
+            </div>
+
+            <h3 id="calc-verdict" style="font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 12px;"></h3>
+            
+            <div style="border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); padding: 16px 0; margin-bottom: 20px;">
+              <p style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;">Chemistry Report</p>
+              <p id="calc-report" style="font-size: 14px; line-height: 1.5; color: var(--text-main); margin-bottom: 12px;"></p>
+              
+              <p style="font-size: 11px; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; margin-top: 16px;">Daily Love Advice</p>
+              <p id="calc-advice" style="font-size: 13px; line-height: 1.5; color: var(--text-muted); font-style: italic;"></p>
+            </div>
+
+            <div class="result-actions" style="display: flex; flex-direction: column; gap: 10px;">
+              <button id="btn-calc-write" class="btn btn-primary">✍️ Write a Love Message</button>
+              <div style="display: flex; gap: 10px; width: 100%;">
+                <button id="btn-calc-share" class="btn btn-secondary" style="flex: 1;">📤 Share Result</button>
+                <button id="btn-calc-retry" class="btn btn-secondary" style="flex: 1;">🔄 Try Another</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 5: ADVICE CORNER ================= -->
+      <section id="section-advice" class="page-section">
+        <h1>Relationship Advice</h1>
+        <p class="section-subtitle">Practical tips for building trust, communication, and solving conflicts.</p>
+
+        <!-- Category subtabs -->
+        <div class="sub-tabs">
+          <button class="sub-tab-btn active" data-advice-cat="all">All Advice</button>
+          <button class="sub-tab-btn" data-advice-cat="ldr">Long Distance</button>
+          <button class="sub-tab-btn" data-advice-cat="comm">Communication</button>
+          <button class="sub-tab-btn" data-advice-cat="conflict">Conflict Resolution</button>
+          <button class="sub-tab-btn" data-advice-cat="trust">Building Trust</button>
+        </div>
+
+        <!-- Articles box -->
+        <div class="advice-grid" id="advice-articles-list-box"></div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-target-tab="generator">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        <span>Generator</span>
+      </button>
+      <button class="nav-item" data-target-tab="vault">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        <span>Vault</span>
+      </button>
+      <button class="nav-item" data-target-tab="playzone">
+        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 12h4m-2-2v4m7-2h.01M19 12h.01"></path></svg>
+        <span>Playzone</span>
+      </button>
+      <button class="nav-item" data-target-tab="love-calc">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <line x1="9" y1="15" x2="15" y2="9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          <circle cx="9.5" cy="9.5" r="1.5" fill="currentColor"></circle>
+          <circle cx="14.5" cy="14.5" r="1.5" fill="currentColor"></circle>
+        </svg>
+        <span>Love Calc</span>
+      </button>
+      <button class="nav-item" data-target-tab="advice">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zm20 0h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+        <span>Advice</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ================= DIALOG MODALS ================= -->
+
+  <!-- Modal: Add Secret Note -->
+  <div id="modal-add-secret-note" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Modal" onclick="window.closeAllModals()">&times;</button>
+      <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:15px;">Add Secret Note</h3>
+      
+      <div class="form-group">
+        <label class="form-label">Note Title</label>
+        <input type="text" id="secret-note-title" class="input-text" placeholder="e.g. My true promises, Secret thoughts">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Secret Text</label>
+        <textarea id="secret-note-text" class="input-textarea" placeholder="Write your hidden feelings here..."></textarea>
+      </div>
+
+      <button id="btn-save-secret-note" class="btn btn-primary">Save Secret Note</button>
+    </div>
+  </div>
+
+  <!-- Modal: Add Memory -->
+  <div id="modal-add-memory" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Modal" onclick="window.closeAllModals()">&times;</button>
+      <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:15px;">Capture a New Memory</h3>
+      
+      <div class="form-group">
+        <label class="form-label">Memory Title</label>
+        <input type="text" id="memory-title" class="input-text" placeholder="e.g. Picnic in the park, First kiss">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="date" id="memory-date" class="input-text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Memory Vibe / Emoji Mood</label>
+        <select id="memory-mood" class="input-select">
+          <option value="happy">Happy 😊</option>
+          <option value="romantic" selected>Romantic 🥰</option>
+          <option value="celebrating">Celebrating 🎉</option>
+          <option value="missing">Nostalgic 🥺</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tell the Story</label>
+        <textarea id="memory-desc" class="input-textarea" placeholder="What made this moment unforgettable?"></textarea>
+      </div>
+
+      <button id="btn-save-memory" class="btn btn-primary">Save Memory</button>
+    </div>
+  </div>
+
+  <!-- Modal: Add Custom Calendar Date -->
+  <div id="modal-add-custom-date" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Modal" onclick="window.closeAllModals()">&times;</button>
+      <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:15px;">Add Custom Love Milestone</h3>
+      
+      <div class="form-group">
+        <label class="form-label">Milestone Name</label>
+        <input type="text" id="milestone-title" class="input-text" placeholder="e.g. Her Birthday, Our Engagement">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="date" id="milestone-date" class="input-text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Milestone Type</label>
+        <select id="milestone-type" class="input-select">
+          <option value="anniversary" selected>Anniversary / Date 💖</option>
+          <option value="birthday">Birthday 🎂</option>
+        </select>
+      </div>
+
+      <button id="btn-save-milestone" class="btn btn-primary">Save Milestone</button>
+    </div>
+  </div>
+
+  <!-- Modal: Text Scheduler -->
+  <div id="modal-scheduler" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Modal" onclick="window.closeAllModals()">&times;</button>
+      <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:8px;">
+        <span>🎁</span> Surprise Text Scheduler
+      </h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px;">Choose when this message should be delivered as a reminder notification.</p>
+
+      <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); margin-bottom:20px; max-height:80px; overflow-y:auto; font-size:12px; font-style:italic;">
+        <span id="scheduler-message-preview"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Scheduled Date</label>
+        <input type="date" id="schedule-date" class="input-text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Scheduled Time</label>
+        <input type="time" id="schedule-time" class="input-text">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Partner's Name/Tag</label>
+        <input type="text" id="schedule-recipient" class="input-text" placeholder="e.g. My Fiancé, Sarah">
+      </div>
+
+      <button id="btn-confirm-schedule" class="btn btn-primary">Confirm Schedule</button>
+    </div>
+  </div>
+
+  <!-- Modal: Sharing Overlay -->
+  <div id="modal-share" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Modal" onclick="window.closeAllModals()">&times;</button>
+      <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:15px;">Share Love Message</h3>
+      
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button id="btn-share-whatsapp" class="btn btn-secondary" style="justify-content:flex-start; text-align:left;">
+          <span style="font-size:18px; margin-right:5px;">💬</span> Share on WhatsApp
+        </button>
+        <button id="btn-share-sms" class="btn btn-secondary" style="justify-content:flex-start; text-align:left;">
+          <span style="font-size:18px; margin-right:5px;">📱</span> Send via SMS
+        </button>
+        <button id="btn-share-copy" class="btn btn-secondary" style="justify-content:flex-start; text-align:left;">
+          <span style="font-size:18px; margin-right:5px;">🔗</span> Copy Message Link
+        </button>
+        <button id="btn-share-download-voice" class="btn btn-secondary" style="justify-content:flex-start; text-align:left;">
+          <span style="font-size:18px; margin-right:5px;">🎙️</span> Export as Voice Note (.mp3)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: App Info / Settings -->
+  <div id="modal-info" class="modal-overlay">
+    <div class="modal-content" style="max-width: 450px;">
+      <button class="modal-close" aria-label="Close Modal" onclick="window.closeAllModals()">&times;</button>
+      <h3 style="font-family: var(--font-display); font-weight:700; margin-bottom:5px; text-align:center;">Perfect Love Text</h3>
+      <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:20px;">Version 1.0.0 (Play Store Ready)</p>
+      
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+        <a href="privacy.html" class="btn btn-secondary" style="justify-content:center; text-decoration:none;">
+          <span>🔒</span> Privacy Policy
+        </a>
+        <a href="terms.html" class="btn btn-secondary" style="justify-content:center; text-decoration:none;">
+          <span>📄</span> Terms & Conditions
+        </a>
+      </div>
+      
+      <p style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:20px;">
+        All personal messages, countdowns, and secret notes are stored 100% locally on your device. We collect zero server data.
+      </p>
+    </div>
+  </div>
+
+  <!-- JS core controllers -->
+  <script type="module" src="generators.js"></script>
+  <script type="module" src="couples.js"></script>
+  <script type="module" src="voice.js"></script>
+  <script type="module" src="calendar.js"></script>
+  <script type="module" src="scheduler.js"></script>
+  <script type="module" src="monetization.js"></script>
+  <script type="module" src="app.js"></script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then((reg) => console.log('Service Worker Registered!', reg.scope))
+          .catch((err) => console.error('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
